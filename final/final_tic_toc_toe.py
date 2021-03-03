@@ -156,10 +156,8 @@ while True:
     playerLetter, computerLetter = inputPlayerLetter()
     turn = whoGoesFirst()
     print('The ' + turn + ' will go first.')
-    gameIsPlaying = True # TODO: Study how this variable is used. Does it ring a bell? (which refactoring method?) 
-                         #       See whether you can get rid of this 'flag' variable. If so, remove it.
-
-    while gameIsPlaying: # TODO: Usually (not always), loops (or their content) are good candidates to be extracted into their own function.
+    
+    while True: # TODO: Usually (not always), loops (or their content) are good candidates to be extracted into their own function.
                          #       Use a meaningful name for the function you choose.
         if turn == 'player':
             # Player’s turn.
@@ -170,14 +168,14 @@ while True:
             if isWinner(theBoard, playerLetter):
                 drawBoard(theBoard)
                 print('Hooray! You have won the game!')
-                gameIsPlaying = False
-            else:  # TODO: is this 'else' necessary?
-                if isBoardFull(theBoard):
-                    drawBoard(theBoard)
-                    print('The game is a tie!')
-                    break
-                else:  # TODO: Is this 'else' necessary?
-                    turn = 'computer'
+                break
+          
+            if isBoardFull(theBoard):
+                drawBoard(theBoard)
+                print('The game is a tie!')
+                break
+                
+            turn = 'computer'
 
         else:
             # Computer’s turn.
@@ -187,14 +185,15 @@ while True:
             if isWinner(theBoard, computerLetter):
                 drawBoard(theBoard)
                 print('The computer has beaten you! You lose.')
-                gameIsPlaying = False
-            else:     # TODO: is this 'else' necessary?
-                if isBoardFull(theBoard):
-                    drawBoard(theBoard)
-                    print('The game is a tie!')
-                    break
-                else: # TODO: Is this 'else' necessary?
-                    turn = 'player'
+                break
+
+            
+            if isBoardFull(theBoard):
+                drawBoard(theBoard)
+                print('The game is a tie!')
+                break
+            
+            turn = 'player'
 
     if not playAgain():
         break
